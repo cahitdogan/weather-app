@@ -18,7 +18,13 @@ function App() {
   function handleCity() {
     const cityName = inputRef.current.value;
     getCity(cityName)
-      .then((city) => setCity(city));
+      .then((city) => {
+        if (city === undefined) {
+          return;
+        } else {
+          setCity(city);
+        }
+      });
   }
 
   return (

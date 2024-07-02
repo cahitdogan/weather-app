@@ -21,11 +21,15 @@ export function getCity(cityName) {
             if (response.ok) {
                 return response.json();
             }
+            else {
+                throw new Error(response.status)
+            }
         })
         .then(data => {
             const city = {};
             city.name = data.location.name;
             city.country = data.location.country;
+            if (city.country === "Truthahn") city.country = "Türkiye";
             city.temperature = data.current.temp_c;
             city.condition = data.current.condition.text;
             city.conditionIcon = data.current.condition.icon
@@ -36,6 +40,11 @@ export function getCity(cityName) {
             return city;
         })
         .catch(error => {
-            console.error(error);
+            switch (error.message) {
+                case "400":
+                    alert("Please enter a valid city name.");
+                    console.error(error);
+                    break;
+            }
         })
 }
