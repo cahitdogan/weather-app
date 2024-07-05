@@ -1,37 +1,27 @@
 import FetchCity from "./FetchCity.jsx";
 import WeatherInfo from "./WeatherInfo.jsx";
 import { getCity } from "./FetchCity.jsx";
-import { useState, useRef } from "react";
-
-let isFirstTime = true;
+import { useState, useRef, useEffect } from "react";
 
 function App() {
   const [city, setCity] = useState({});
   const inputRef = useRef(null);
 
-  if (isFirstTime) {
+  useEffect(() => {
     getCity("Istanbul")
       .then(city => setCity(city))
-      .then(() => isFirstTime = false)
-  }
+      .catch(() => {});
+  }, []);
 
   function handleCity() {
     const cityName = inputRef.current.value;
     getCity(cityName)
-      .then((city) => {
-        if (city === undefined) {
-          return;
-        } else {
-          setCity(city);
-        }
-      });
+      .then(city => setCity(city))
+      .catch(() => {});
   }
 
   return (
-    <main
-      id="container"
-      className="bg-gray-900 h-screen w-full flex flex-col justify-center text-gray-50 py-8 md:max-w-xl md:h-auto md:rounded-lg"
-    >
+    <main className="bg-gray-900 h-screen w-full flex flex-col justify-center text-gray-50 py-8 md:max-w-xl md:h-auto md:rounded-lg">
       <WeatherInfo city={city} />
       <FetchCity handleCity={handleCity} inputRef={inputRef} />
     </main>
