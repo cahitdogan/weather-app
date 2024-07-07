@@ -1,4 +1,4 @@
-export default function FetchCity({ handleCity, inputRef }) {
+export default function FetchCity({ handleCity, inputRef, buttonClass, buttonContent }) {
     function handleSubmit(event) {
         event.preventDefault();
     }
@@ -7,8 +7,10 @@ export default function FetchCity({ handleCity, inputRef }) {
         <section>
             <form onSubmit={handleSubmit} className="pt-6 flex flex-col items-center gap-6">
                 <label htmlFor="city-name" className="text-lg font-semibold">City Name</label>
-                <input ref={inputRef} type="text" name="cityName" className="w-4/5 h-11 bg-gray-50 border-none rounded-3xl ps-6 outline-gray-950 text-xl text-black"/>
-                <button onClick={handleCity} type="submit" className="bg-gray-50 px-9 py-1 text-gray-900 text-lg border-none rounded-3xl font-semibold">Get</button>
+                <input id="city-name" ref={inputRef} type="text" name="cityName" className="w-4/5 h-11 bg-gray-50 border-none rounded-3xl ps-6 outline-gray-950 text-xl text-black"/>
+                <button onClick={handleCity} type="submit" className="bg-gray-50 px-9 py-1 text-gray-900 text-lg border-none rounded-3xl font-semibold">
+                    {buttonContent}
+                </button>
             </form>
         </section>
     );
